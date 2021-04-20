@@ -35,7 +35,7 @@
 
     <!-- Construct Map Object -->
     <script>
-        const map = L.map('map', {
+        var map = L.map('map', {
           center: [44.18, -78.28],
           zoom: 10
         });
@@ -43,9 +43,13 @@
         // Load Esri's World Streetmap tiles (adding a basemap from ArcGIS Online)
         // Add feature layer from ArcGIS REST Endpoint Food_Banks URL!
         L.esri.basemapLayer('NationalGeographic').addTo(map);
-        L.esri.featureLayer({
+        var foodbanks = L.esri.featureLayer({
         url: 'https://services3.arcgis.com/KJrsq5lsoZHRcF4w/ArcGIS/rest/services/Food_Banks/FeatureServer/0'
         }).addTo(map);
+
+        foodbanks.bindPopup(function (layer) {
+          return L.Util.template('Address:' + layer.feature.properties.Address);
+        });
       </script>
 </body>
 </html>
