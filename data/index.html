@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Leaflet Map with a Basemap</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+  <!-- lets load Leaflet's .js and .css from CDN-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>  
+
+  <!-- Load Esri Leaflet from CDN.  it has no .css stylesheet of its own, only .js -->
+  <script src="https://unpkg.com/esri-leaflet@3.0.1/dist/esri-leaflet.js"
+    integrity="sha512-JmpptMCcCg+Rd6x0Dbg6w+mmyzs1M7chHCd9W8HPovnImG2nLAQWn3yltwxXRM7WjKKFFHOAKjjF2SC4CgiFBg=="
+    crossorigin=""></script>
+
+    <!-- Create container for map -->
+    <style>
+        html,
+        body,
+        #map {
+          height: 100%;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+      </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <!-- Construct Map Object -->
+    <script>
+        const map = L.map('map', {
+          center: [44.18, -78.28],
+          zoom: 10
+        });
+
+        // Load Esri's World Streetmap tiles (adding a basemap from ArcGIS Online)
+        // Add feature layer from ArcGIS REST Endpoint Food_Banks URL!
+        L.esri.basemapLayer('NationalGeographic').addTo(map);
+        L.esri.featureLayer({
+        url: 'https://services3.arcgis.com/KJrsq5lsoZHRcF4w/ArcGIS/rest/services/Food_Banks/FeatureServer/0'
+        }).addTo(map);
+      </script>
+</body>
+</html>
